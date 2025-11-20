@@ -1,6 +1,10 @@
-**SparkTech AI Pipeline**
+## SparkTech AI Pipeline
 
 - **Overview**: This repository contains a modeling pipeline for a question-pair duplicate detection task. The main workflow is implemented in `model_pipeline.ipynb` which performs data cleaning, text preprocessing, feature extraction, model training (classical ML and deep learning), evaluation, and saves trained models into the `models/` folder.
+
+- **Flow Diagram**: This flow diagram will help you to visualize the exact senario of the whole development process.
+![Alt Text](./assets/images/Project_flow_diagram.png)
+
 
 - **Notebook**: The primary notebook is `model_pipeline.ipynb`. It:
 	- Loads and cleans `dataset/train.csv`.
