@@ -61,6 +61,27 @@ pip install pandas numpy matplotlib seaborn scikit-learn tensorflow nltk beautif
 - **Notes & recommendations**:
 	- The notebook performs heavy preprocessing and model training; if you only want to experiment with inference, use the saved models in `models/` and the saved `tfidf_vectorizer.pkl`.
 	- The preprocessing uses NLTK resources (`wordnet`, `omw-1.4`); download them (the notebook already calls `nltk.download(...)`) or run `python -c "import nltk; nltk.download('wordnet'); nltk.download('omw-1.4')"` once in your environment.
-	- If you plan to retrain the TensorFlow models, consider running on a machine with GPU support and ensuring `tensorflow` matches your CUDA/cuDNN setup.
+ 	- If you plan to retrain the TensorFlow models, consider running on a machine with GPU support and ensuring `tensorflow` matches your CUDA/cuDNN setup.
 
 - **Contact / Author**: Repository owner: `AhmadSaheb007`.
+ 
+## Model Performance Overview
+
+**Summary & Comparison Table**: This section summarizes evaluation metrics for the main models trained by the notebook `model_pipeline.ipynb` and provide a proper comparison to understands the performances more efficiently. Here the compared models are:
+- Logistic Regression (TF-IDF) Model.
+- Linear SVM (TF-IDF) Model.
+- LSTM (Keras) Model 5 Epochs.
+- LSTM (Keras) Model 10 Epochs.
+- Siamese GRU (Keras).
+
+| Model | Accuracy | Precision | Recall | F1-score | ROC-AUC |  Notes |
+|---|---:|---:|---:|---:|---:|---|
+| Logistic Regression (TF-IDF) | 75% | 77% | 82% | 62% | 81% | Fast baseline; interpretable coefficients |
+| Linear SVM (TF-IDF) | 76% | 75% | 76% | 75% | 82% | Strong baseline for high-dimensional sparse features |
+| LSTM (Keras) 5 epoch | 77% | 77% | 77% | 77% | 82% | Captures sequence information; may require regularization |
+| LSTM (Keras) 10 epoch | 77% | 77% | 77% | 77% | 82% | Captures sequence information; may require regularization |
+| Siamese GRU (Keras) | 83% | 75% | 81% | 78% | 89% | Encodes pairwise interactions; often best for semantic matching |
+
+
+**Conclusion (recommendation)**: While exact results depend on hyperparameters and dataset splits, But in current senario and evalution matrices, the **Siamese GRU** architecture is performing as the strongest candidate for duplicate-question detection because it explicitly models pairwise semantic interactions between questions, which typically improves recall and F1 for semantic-paraphrase tasks. If you prioritize inference speed and simplicity, the `Logistic Regression` model with TF-IDF is a solid, lightweight alternative.
+
