@@ -2,6 +2,17 @@
 
 - **Overview**: This repository contains a modeling pipeline for a question-pair duplicate detection task. The main workflow is implemented in `model_pipeline.ipynb` which performs data cleaning, text preprocessing, feature extraction, model training (classical ML and deep learning), evaluation, and saves trained models into the `models/` folder.
 
+- **Approach**:
+	- **Data loading:** Load the dataset from `dataset/train.csv` into a pandas `DataFrame` and inspect basic statistics.
+	- **Data cleaning:** Handle missing values, drop irrelevant columns (e.g., `id`, `qid1`, `qid2`), and normalize text fields.
+	- **Text preprocessing:** Remove HTML, expand contractions, remove URLs and numbers, lowercase, remove stopwords, and apply stemming/lemmatization.
+	- **Data Spliting:** Spliting the data in train, text and val segments. Where the train data used to train the model, val used to test the model while trainig and lastly test data used to test the actual performance of the model. Each segment devided into 80:20 ratio. 
+	- **Feature engineering:** Create TF-IDF representations for classical models and tokenize/pad sequences for deep models (LSTM / GRU).
+	- **Model training:** Train classical classifiers (Logistic Regression, Linear SVM) on TF-IDF features and deep models (LSTM, Siamese GRU) on tokenized sequences.
+	- **Evaluation:** Use the notebook's `evaluate_model(...)` function to compute accuracy, precision, recall, F1-score, ROC-AUC and plot confusion matrices and ROC curves.
+	- **Model persistence:** Save trained models and vectorizers to `models/` (e.g., `.pkl` for scikit-learn artifacts, `.keras` for Keras models) for later inference.
+	- **Inference & reporting:** Load saved artifacts for quick inference and generate performance reports or demo predictions.
+
 - **Flow Diagram**: This flow diagram will help you to visualize the exact senario of the whole development process.
 ![Alt Text](./assets/images/Project_flow_diagram.png)
 
